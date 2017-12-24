@@ -1,23 +1,35 @@
 <?php
 namespace Ole1986;
 
+/**
+ * MailFilter class to apply filters on imap_fetch_overview
+ */
 class MailFilter {
-    private $conditions;
-
+    
+    /**
+     * string filter on contains
+     */
     public function Contains($property, $value) {
         if(!in_array($property, ['subject', 'from', 'to', 'date', 'body'])) throw new Exception('Contains not supported for' . $property);
         $this->$property = ['matchContains', $value];
     }
-
+    /**
+     * exact filter on either string or numbers
+     */
     public function Equals($property, $value) {
         $this->$property = ['matchEquals', $value];
     }
-
+    /**
+     * date filter greater than
+     */
     public function Greater($property, $value) {
         if(!in_array($property, ['udate'])) throw new Exception('Greater not supported for' . $property);
         $this->$property = ['matchGreater', $value];
     }
 
+    /**
+     * date filter lower than
+     */
     public function Lower($property, $value) {
         if(!in_array($property, ['udate'])) throw new Exception('Lower not supported for' . $property);
         $this->$property = ['matchLower', $value];
@@ -34,7 +46,12 @@ class MailFilter {
         return true;
     }
 
-    public function __call($name, $arg){
+    /**
+     * Dynamic call match methods
+     * @param $name match name (E.g. matchContains)
+     * @param $arg array of comparator (local / remote)
+     */
+    public function __call($name, $arg) {
         list($local, $remote) = $arg;
 
         switch($name){

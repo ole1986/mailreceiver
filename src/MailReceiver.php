@@ -2,9 +2,7 @@
 namespace Ole1986;
 /**
  * MailReceiver to fetch email from an IMAP or POP3 account by filtering the result
- * 
- * Author: ole1986
- */
+  */
 class MailReceiver {
 
     private $limit;
@@ -12,6 +10,12 @@ class MailReceiver {
     private $list;
     private $filter;
 
+    /**
+     * Connect to IMAP / POP3 server with the given parameter
+     * @param $host hostname
+     * @param $user username
+     * @param $pass password
+     */
     public function __construct($host, $user, $pass){
         $this->mbox = imap_open($host, $user, $pass);
 
@@ -35,6 +39,10 @@ class MailReceiver {
         });
     }
 
+    /**
+     * Limit the received emails (default: 50)
+     * @param $limit number of max emails to receive
+     */
     private function Limit($num) {
         $this->limit = $num;
         return $limit;
@@ -70,15 +78,25 @@ class MailReceiver {
         return $this;
     }
 
+    /**
+     * Filter on date greater the given value
+     * @param $time time (unix_timestamp)
+     */
     public function DateGreater($time) {
         $this->filter->Greater('udate', $time);
     }
+
+    /**
+     * Filter on date lower the value
+     * @param $time time (unix_timestamp)
+     */
     public function DateLower($time) {
         $this->filter->Lower('udate', $time);
     }
 
     /**
      * filter only subject contains (case-insensitive)
+     * @param $title string matching the subject line
      */
     public function Subject($title) {
         $this->filter->Contains('subject', $title);
