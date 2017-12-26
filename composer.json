@@ -2,7 +2,7 @@
     "name": "ole1986/mailreceiver",
     "type": "library",
     "description": "MailReceiver is used to fetch mails from IMAP / POP3 accounts while filtering the result",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "autoload": {
         "psr-4": {"Ole1986\\": "src/" }
@@ -15,7 +15,6 @@
         }
     ],
     "require": {
-        "php": "^5.4 || ^7.0",
-        "ext-imap": "*"
+        "php": "^5.4 || ^7.0"
     }
 }
