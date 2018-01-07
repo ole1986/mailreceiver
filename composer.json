@@ -2,7 +2,7 @@
     "name": "ole1986/mailreceiver",
     "type": "library",
     "description": "MailReceiver is used to fetch mails from IMAP / POP3 accounts while filtering the result",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "MIT",
     "autoload": {
         "psr-4": {"Ole1986\\": "src/" }

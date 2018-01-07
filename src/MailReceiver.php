@@ -4,7 +4,6 @@ namespace Ole1986;
  * MailReceiver to fetch email from an IMAP or POP3 account by filtering the result
   */
 class MailReceiver {
-
     private $limit;
     private $mbox;
     private $list;
@@ -51,15 +50,16 @@ class MailReceiver {
     /**
      * Fetch all (filtered) mails as array
      * @param {bool} $peek either mark them as reed or keep them as unread
+     * @param {string} $section the section to receive from body (html or plain text)
      */
-    public function FetchAll($peek = false){
+    public function FetchAll($peek = false, $section = '1'){
         $this->load();
 
         $options = 0;
         if($peek) $options = FT_PEEK;
 
         foreach($this->list as $item) {
-            $item->body = imap_body($this->mbox, $item->msgno, $options);
+            $item->body = imap_fetchbody($this->mbox, $item->msgno, $section, $options);
         }
 
         // after body received apply the body filter
